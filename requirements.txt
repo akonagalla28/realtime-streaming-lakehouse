@@ -1,0 +1,8 @@
+kafka-python==2.0.2
+faker==25.2.0
+pyspark==3.5.1
+delta-spark==3.1.0
+dbt-snowflake==1.8.0
+great-expectations==0.18.16
+apache-airflow==2.9.3
+apache-airflow-providers-slack==8.6.2
