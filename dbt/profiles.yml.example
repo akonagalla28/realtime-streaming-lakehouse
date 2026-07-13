@@ -1,0 +1,16 @@
+# Copy to ~/.dbt/profiles.yml and fill in your Snowflake account details.
+# Gold Delta tables are exposed to Snowflake via external tables / Snowpipe
+# (see docs/architecture.md) so dbt only ever reads Snowflake, never the lake directly.
+streaming_lakehouse:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: TRANSFORMER
+      database: STREAMING_LAKEHOUSE
+      warehouse: TRANSFORM_WH
+      schema: dbt_dev
+      threads: 4

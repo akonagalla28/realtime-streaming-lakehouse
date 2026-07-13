@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: fct_eta_features
+    description: Point-in-time ML feature table for the ETA prediction model.
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: eta_minutes
+        tests:
+          - not_null
+
+  - name: dim_restaurant_daily_performance
+    description: BI-facing daily rollup of restaurant order performance.
+    columns:
+      - name: restaurant_id
+        tests:
+          - not_null
+      - name: cancel_rate
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 1

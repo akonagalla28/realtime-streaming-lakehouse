@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: lakehouse_gold
+    description: >
+      External tables over the Delta Gold layer (bronze/silver/gold live in
+      S3-compatible object storage; Snowflake reads Gold via external tables
+      refreshed by the `refresh_gold_external_tables` Airflow task).
+    database: STREAMING_LAKEHOUSE
+    schema: raw_gold
+    tables:
+      - name: eta_model_features
+        loaded_at_field: event_ts
+        freshness:
+          warn_after: { count: 30, period: minute }
+          error_after: { count: 2, period: hour }
+      - name: restaurant_ops_metrics
+        loaded_at_field: window_end
+        freshness:
+          warn_after: { count: 90, period: minute }
+          error_after: { count: 4, period: hour }
